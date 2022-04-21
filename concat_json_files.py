@@ -21,7 +21,7 @@ from os import listdir
 import json
 import os
 import sys
-
+import sys, argparse
 
 DATABASE = "SCANNET"#"MSCOCO"
 
@@ -31,6 +31,22 @@ ANNOTATIONFILE_PREFIX = "train"
 #ANNOTATIONFILE_PREFIX = "test"
 
 TOLERANCE = 5
+
+
+parser = argparse.ArgumentParser()
+# data paths
+# path to directory containing the .sens file and <scene>_2d-instance-filt.zip
+#define input and output dir
+parser.add_argument('--scannet_scene_dir', required=True, help='input path to json files that should be concatenated')
+parser.add_argument('--output_file_dir', required=True, help='output file path for the concatenated file')
+
+opt = parser.parse_args()
+opt.export_color_images = True
+
+
+INPUT_DIR = opt.scannet_scene_dir # 'train'
+OUTPUT_DIR = opt.output_file_dir 
+
 
 def main():
 
@@ -78,8 +94,6 @@ def main():
 
     info_added = False
     
-    OUTPUT_DIR = os.path.join("D:/Atlantis/ScannetSamples/annotations/tmpOutput/")
-    INPUT_DIR = "D:\\Atlantis\\ScannetSamples\\tmpOutput\\scannetFilteredImages_filtered_trainFiles\\"
 
     
     json_file_concat = ANNOTATIONFILE_PREFIX + "-tol5-scannet-v2.json"
