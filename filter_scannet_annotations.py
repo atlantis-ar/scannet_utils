@@ -23,7 +23,7 @@ import sys
 import time
 import numpy as np
 from random import randrange
-
+import argparse
 
 
 DATABASE = "SCANNET"
@@ -42,10 +42,19 @@ reduceCategories = True
 variantFaster = True
 
 
-OUTPUT_DIR = os.path.join("D:/Atlantis/ScannetSamples/tmpOutput/scannetFilteredImages_"+identifier+"_"+ANNOTATIONFILE_PREFIX+"Files/")
-INPUT_DIR = "\\\\avm-media\\Storage\\Datasets\\ScanNet\\solov2\\tmpOutput\\" 
-        
 
+parser = argparse.ArgumentParser()
+
+#define input and output dir
+parser.add_argument('--scannet_scene_dir', required=True, help='input path to json files that should be filtered')
+parser.add_argument('--output_file_dir', required=True, help='output file path for the filtered scene files')
+
+opt = parser.parse_args()
+opt.export_color_images = True
+
+
+INPUT_DIR = opt.scannet_scene_dir # 'train'
+OUTPUT_DIR = opt.output_file_dir 
 
  
 def main():
